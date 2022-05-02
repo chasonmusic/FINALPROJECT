@@ -1,6 +1,7 @@
 let audio1 = new Audio('C_1.wav');
-let audio2 = new Audio('C#_1.wav');
+let audio2 = new Audio('Csharp_1.wav');
 var noteaudio = 0;
+let device;
 
 
 if (navigator.requestMIDIAccess){
@@ -32,15 +33,9 @@ if (navigator.requestMIDIAccess){
     
         }
 
-        function colorKeys(key, clr) {
-            device && device.send([0x90, key, clr]); //note on
-        }
+       
 
-        function clearAll(){
-            for(let i=0; i<100; i++){
-                colorKeys(i,0);
-            }
-        }
+     
 
         function handleInput(input){
        
@@ -63,17 +58,18 @@ if (navigator.requestMIDIAccess){
     }
         }
     
-    
+     
     
         function noteOn(note){
     
     console.log('note:${note} //on');
 
     if (note == 64){
+        colorKeys(65,124);
         noteaudio = 1;
         audioplay();
         b = 255; 
-        colorKeys(64,124);
+       
         document.getElementById('main').innerHTML="Note 64 is C";
         document.getElementById('note1').style.backgroundColor = `rgba(${b},${b},0,1)`;
         
@@ -130,3 +126,17 @@ function noteOff(note){
         audio1.pause(); 
         noteaudio=0;
     }
+
+
+
+
+
+    function colorKeys(key, clr) {
+        device && device.send([0x90, key, clr]); // note on
+    }
+
+    /*function clearAll(){
+        for(let i=0; i<100; i++){
+            colorKeys(i,0);
+        }
+    }*/
